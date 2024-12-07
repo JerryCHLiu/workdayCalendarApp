@@ -29,14 +29,14 @@ body {
 .switch-container {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 6px;
 }
 
 .switch {
     position: relative;
     display: inline-block;
-    width: 60px;
-    height: 34px;
+    width: 50px;
+    height:24px;
 }
 
 .switch input {
@@ -60,8 +60,8 @@ body {
 .slider:before {
     position: absolute;
     content: "";
-    height: 26px;
-    width: 26px;
+    height: 18px;
+    width: 18px;
     left: 4px;
     bottom: 4px;
     background-color: white;
@@ -182,12 +182,19 @@ background-color: #a5c3b5;
 background-color: #ecc680;
 }
 
-.return-date-item .passport-urgent-return {
+.return-date-item.passport {
+    background-color: #a5c3b5;
+    border-left-color: #000000;
+}
+.return-date-item.passport-urgent {
     background-color: #a5c3b5;
     border-left-color: #f44336;
 }
-
-.return-date-item .permit-urgent-return {
+.return-date-item.permit {
+    background-color: #ecc680;
+    border-left-color: #000000;
+}
+.return-date-item.permit-urgent {
     background-color: #ecc680;
     border-left-color: #f44336;
 }
@@ -230,7 +237,13 @@ background-color: #ecc680;
     background-color: #ffe6e6;
 }
 
+.calendar div.selected {
+    background-color:#a4d8ff ;
+}
+
 .calendar div.today {
+    font-size: 1.0em;
+    font-weight: bold;
     background-color: #e3f2fd;
 }
 
