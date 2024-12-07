@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>業務回件日期計算器</title>
+        <link rel="stylesheet" href="styles.css" />
+    </head>
+    <body>
+        <div class="main-container">
+            <div class="business-switches">
+                <div class="switch-container">
+                    <label class="switch">
+                        <input type="checkbox" id="passport-switch" checked />
+                        <span class="slider"></span>
+                    </label>
+                    <span class="switch-label">護照</span>
+                </div>
+                <div class="switch-container">
+                    <label class="switch">
+                        <input type="checkbox" id="permit-switch" checked />
+                        <span class="slider"></span>
+                    </label>
+                    <span class="switch-label">台胞證</span>
+                </div>
+                <div class="switch-container">
+                    <label class="switch">
+                        <input type="checkbox" id="urgent-switch" checked />
+                        <span class="slider"></span>
+                    </label>
+                    <span class="switch-label">急件</span>
+                </div>
+            </div>
+
+            <div class="calendar-container">
+                <div class="month-navigation">
+                    <button id="prev-month">上個月</button>
+                    <div id="month-year" class="month-year"></div>
+                    <button id="next-month">下個月</button>
+                </div>
+                <div class="weekdays">
+                    <div>日</div>
+                    <div>一</div>
+                    <div>二</div>
+                    <div>三</div>
+                    <div>四</div>
+                    <div>五</div>
+                    <div>六</div>
+                </div>
+                <div id="calendar" class="calendar"></div>
+            </div>
+
+            <div class="result-display">
+                <div id="selected-date-info"></div>
+                <div id="return-dates"></div>
+            </div>
+        </div>
+        <script src="script.js"></script>
+    </body>
+</html>
