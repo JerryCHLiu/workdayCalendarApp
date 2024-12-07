@@ -1,17 +1,17 @@
 body {
     font-family: Arial, sans-serif;
     display: flex;
-    justify-content: center;
+    justify-content: start;
     align-items: center;
     min-height: 100vh;
     margin: 0;
     background-color: #f0f0f0;
-    padding: 20px;
+    padding: 10px;
 }
 
 .main-container {
     background-color: white;
-    padding: 20px;
+    padding: 10px;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     max-width: 800px;
@@ -208,22 +208,33 @@ background-color: #ecc680;
     border: 2px solid #f44336;
 }
 .result-display {
-    margin-top: 20px;
+
+    grid-template-rows: repeat(2, auto);
+ 
+    justify-items: center;
+    align-items: center;
+    margin-top: 5px;
     padding: 15px;
     background-color: #f8f9fa;
     border-radius: 5px;
 }
 
 #selected-date-info {
+    grid-column: span 2;
+    justify-self: stretch;
+    text-align: center;
     font-size: 1.2em;
     margin-bottom: 10px;
     color: #333;
 }
 
 #return-dates {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, auto);
+    gap: 10px;
+    justify-items: center;
+    align-items: center;
 }
 
 .return-date-item {
@@ -260,6 +271,19 @@ background-color: #ecc680;
     color: #333;
     margin-top: 5px;
     text-align: center;
+}
+
+.calendar-day {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+.holiday-remark {
+    font-size: 0.6rem;
+    color: red;
+    margin-top: 4px;
 }
 
 @media (max-width: 600px) {

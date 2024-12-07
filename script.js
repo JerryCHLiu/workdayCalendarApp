@@ -107,7 +107,7 @@ document.addEventListener("DOMContentLoaded", function () {
             );
             const passportElement = document.createElement("div");
             passportElement.className = "return-date-item passport";
-            passportElement.textContent = `護照回件日期：${formatDateMMDD(
+            passportElement.textContent = `護照：${formatDateMMDD(
                 passportDate
             )}`;
             returnDates.appendChild(passportElement);
@@ -119,7 +119,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 );
                 const urgentElement = document.createElement("div");
                 urgentElement.className = "return-date-item passport-urgent";
-                urgentElement.textContent = `護照急件回件日期：${formatDateMMDD(
+                urgentElement.textContent = `護照急：${formatDateMMDD(
                     urgentPassportDate
                 )}`;
                 returnDates.appendChild(urgentElement);
@@ -130,7 +130,7 @@ document.addEventListener("DOMContentLoaded", function () {
             const permitDate = calculateReturnDate(selectedDate, PERMIT_DAYS);
             const permitElement = document.createElement("div");
             permitElement.className = "return-date-item permit";
-            permitElement.textContent = `台胞證回件日期：${formatDateMMDD(
+            permitElement.textContent = `台胞：${formatDateMMDD(
                 permitDate
             )}`;
             returnDates.appendChild(permitElement);
@@ -142,7 +142,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 );
                 const urgentElement = document.createElement("div");
                 urgentElement.className = "return-date-item permit-urgent";
-                urgentElement.textContent = `台胞證急件回件日期：${formatDateMMDD(
+                urgentElement.textContent = `台胞急：${formatDateMMDD(
                     urgentPermitDate
                 )}`;
                 returnDates.appendChild(urgentElement);
@@ -166,6 +166,9 @@ document.addEventListener("DOMContentLoaded", function () {
             const dateDiv = document.createElement("div");
             dateDiv.textContent = currentDate.getDate();
 
+            // Set data-date attribute for each date
+            dateDiv.setAttribute('data-date', `${currentDate.getFullYear()}-${currentDate.getMonth() + 1}-${currentDate.getDate()}`);
+
             // Add classes for styling
             if (currentDate.getMonth() !== month) {
                 dateDiv.classList.add("other-month");
@@ -184,6 +187,19 @@ document.addEventListener("DOMContentLoaded", function () {
                 currentDate.toDateString() === selectedDate.toDateString()
             ) {
                 dateDiv.classList.add("selected");
+            }
+
+            dateDiv.classList.add("calendar-day");
+
+            // Add holiday remarks
+            const holiday = holidays.find(h => h['西元日期'] === `${currentDate.getFullYear()}${(currentDate.getMonth() + 1).toString().padStart(2, '0')}${currentDate.getDate().toString().padStart(2, '0')}`);
+            if (holiday && holiday['備註']) {
+                const remarkElement = document.createElement('span');
+                remarkElement.className = 'holiday-remark';
+                // Limit remark to three characters
+                const limitedRemark = holiday['備註'].length > 3 ? holiday['備註'].substring(0, 3) : holiday['備註'];
+                remarkElement.textContent = limitedRemark;
+                dateDiv.appendChild(remarkElement);
             }
 
             // Add return date indicators
@@ -257,6 +273,19 @@ document.addEventListener("DOMContentLoaded", function () {
         generateCalendar(currentYear, currentMonth);
     }
 
+    // Function to select today's date
+    function selectToday() {
+        const today = new Date();
+        const todayElement = document.querySelector(
+            `.calendar-day[data-date='${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}']`
+        );
+        if (todayElement) {
+            todayElement.classList.add('selected');
+            selectedDate = today;
+            updateReturnDates();
+        }
+    }
+
     // Event Listeners
     prevMonthButton.addEventListener("click", () => {
         currentMonth--;
@@ -304,4 +333,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Initialize
     fetchHolidays();
+    renderCalendar();
+    selectToday(); // Select today's date after rendering the calendar
 });
