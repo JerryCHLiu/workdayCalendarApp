@@ -190,6 +190,10 @@ background-color: #ecc680;
     background-color: #a5c3b5;
     border-left-color: #f44336;
 }
+.return-date-item.passport-reissue {
+    background-color: #a5c3b5;
+    border-left-color: #6b3900;
+}
 .return-date-item.permit {
     background-color: #ecc680;
     border-left-color: #000000;
@@ -202,6 +206,10 @@ background-color: #ecc680;
 .calendar .passport-urgent-return {
     background-color: #a5c3b5;
     border: 2px solid #f44336;
+}
+.calendar .passport-reissue-return {
+    background-color: #a5c3b5;
+    border: 5px solid #6b3900;
 }
 .calendar .permit-urgent-return {
     background-color: #ecc680;

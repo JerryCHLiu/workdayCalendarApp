@@ -7,6 +7,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const passportSwitch = document.getElementById("passport-switch");
     const permitSwitch = document.getElementById("permit-switch");
     const urgentSwitch = document.getElementById("urgent-switch");
+    const reissueSwitch = document.getElementById("reissue-switch");
     const selectedDateInfo = document.getElementById("selected-date-info");
     const returnDates = document.getElementById("return-dates");
 
@@ -33,10 +34,11 @@ document.addEventListener("DOMContentLoaded", function () {
     ];
 
     // Business Rules
-    const PASSPORT_DAYS = 12;
-    const PERMIT_DAYS = 8;
-    const URGENT_PASSPORT_DAYS = 3;
-    const URGENT_PERMIT_DAYS = 4;
+    const PASSPORT_DAYS = 11;
+    const PERMIT_DAYS = 6;
+    const URGENT_PASSPORT_DAYS = 2;
+    const URGENT_PERMIT_DAYS = 3;
+    const REISSUE_PASSPORT_DAYS = 12;
 
     // Fetch holidays from JSON
     async function fetchHolidays() {
@@ -124,15 +126,26 @@ document.addEventListener("DOMContentLoaded", function () {
                 )}`;
                 returnDates.appendChild(urgentElement);
             }
+
+            if (reissueSwitch.checked) {
+                const reissuePassportDate = calculateReturnDate(
+                    selectedDate,
+                    REISSUE_PASSPORT_DAYS
+                );
+                const reissueElement = document.createElement("div");
+                reissueElement.className = "return-date-item passport-reissue";
+                reissueElement.textContent = `護照遺：${formatDateMMDD(
+                    reissuePassportDate
+                )}`;
+                returnDates.appendChild(reissueElement);
+            }
         }
 
         if (permitSwitch.checked) {
             const permitDate = calculateReturnDate(selectedDate, PERMIT_DAYS);
             const permitElement = document.createElement("div");
             permitElement.className = "return-date-item permit";
-            permitElement.textContent = `台胞：${formatDateMMDD(
-                permitDate
-            )}`;
+            permitElement.textContent = `台胞：${formatDateMMDD(permitDate)}`;
             returnDates.appendChild(permitElement);
 
             if (urgentSwitch.checked) {
@@ -167,7 +180,12 @@ document.addEventListener("DOMContentLoaded", function () {
             dateDiv.textContent = currentDate.getDate();
 
             // Set data-date attribute for each date
-            dateDiv.setAttribute('data-date', `${currentDate.getFullYear()}-${currentDate.getMonth() + 1}-${currentDate.getDate()}`);
+            dateDiv.setAttribute(
+                "data-date",
+                `${currentDate.getFullYear()}-${
+                    currentDate.getMonth() + 1
+                }-${currentDate.getDate()}`
+            );
 
             // Add classes for styling
             if (currentDate.getMonth() !== month) {
@@ -192,12 +210,24 @@ document.addEventListener("DOMContentLoaded", function () {
             dateDiv.classList.add("calendar-day");
 
             // Add holiday remarks
-            const holiday = holidays.find(h => h['西元日期'] === `${currentDate.getFullYear()}${(currentDate.getMonth() + 1).toString().padStart(2, '0')}${currentDate.getDate().toString().padStart(2, '0')}`);
-            if (holiday && holiday['備註']) {
-                const remarkElement = document.createElement('span');
-                remarkElement.className = 'holiday-remark';
+            const holiday = holidays.find(
+                (h) =>
+                    h["西元日期"] ===
+                    `${currentDate.getFullYear()}${(currentDate.getMonth() + 1)
+                        .toString()
+                        .padStart(2, "0")}${currentDate
+                        .getDate()
+                        .toString()
+                        .padStart(2, "0")}`
+            );
+            if (holiday && holiday["備註"]) {
+                const remarkElement = document.createElement("span");
+                remarkElement.className = "holiday-remark";
                 // Limit remark to three characters
-                const limitedRemark = holiday['備註'].length > 3 ? holiday['備註'].substring(0, 3) : holiday['備註'];
+                const limitedRemark =
+                    holiday["備註"].length > 3
+                        ? holiday["備註"].substring(0, 3)
+                        : holiday["備註"];
                 remarkElement.textContent = limitedRemark;
                 dateDiv.appendChild(remarkElement);
             }
@@ -225,6 +255,18 @@ document.addEventListener("DOMContentLoaded", function () {
                             urgentPassportDate.toDateString()
                         ) {
                             dateDiv.classList.add("passport-urgent-return");
+                        }
+                    }
+                    if (reissueSwitch.checked) {
+                        const reissuePassportDate = calculateReturnDate(
+                            selectedDate,
+                            REISSUE_PASSPORT_DAYS
+                        );
+                        if (
+                            currentDate.toDateString() ===
+                            reissuePassportDate.toDateString()
+                        ) {
+                            dateDiv.classList.add("passport-reissue-return");
                         }
                     }
                 }
@@ -277,10 +319,12 @@ document.addEventListener("DOMContentLoaded", function () {
     function selectToday() {
         const today = new Date();
         const todayElement = document.querySelector(
-            `.calendar-day[data-date='${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}']`
+            `.calendar-day[data-date='${today.getFullYear()}-${
+                today.getMonth() + 1
+            }-${today.getDate()}']`
         );
         if (todayElement) {
-            todayElement.classList.add('selected');
+            todayElement.classList.add("selected");
             selectedDate = today;
             updateReturnDates();
         }
@@ -327,6 +371,10 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     urgentSwitch.addEventListener("change", () => {
+        updateReturnDates();
+        renderCalendar();
+    });
+    reissueSwitch.addEventListener("change", () => {
         updateReturnDates();
         renderCalendar();
     });
