@@ -1,7 +1,7 @@
 body {
     font-family: Arial, sans-serif;
     display: flex;
-    justify-content: start;
+    justify-content: center;
     align-items: center;
     min-height: 100vh;
     margin: 0;
@@ -14,14 +14,14 @@ body {
     padding: 10px;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    max-width: 800px;
+    max-width: 400px;
     width: 100%;
 }
 
 .business-switches {
     display: flex;
     justify-content: center;
-    gap: 20px;
+    gap: 10px;
     margin-bottom: 20px;
     flex-wrap: wrap;
 }
@@ -35,8 +35,8 @@ body {
 .switch {
     position: relative;
     display: inline-block;
-    width: 50px;
-    height:24px;
+    width: 40px;
+    height:20px;
 }
 
 .switch input {
@@ -54,7 +54,7 @@ body {
     bottom: 0;
     background-color: #ccc;
     transition: .4s;
-    border-radius: 34px;
+    border-radius: 20px;
 }
 
 .slider:before {
@@ -62,8 +62,8 @@ body {
     content: "";
     height: 18px;
     width: 18px;
-    left: 4px;
-    bottom: 4px;
+    left: 1%;
+    bottom: 1px;
     background-color: white;
     transition: .4s;
     border-radius: 50%;
@@ -79,11 +79,11 @@ input:disabled + .slider {
 }
 
 input:checked + .slider:before {
-    transform: translateX(26px);
+    transform: translateX(20px);
 }
 
 .switch-label {
-    font-size: 1.1em;
+    font-size: 1em;
     color: #333;
 }
 
@@ -98,14 +98,14 @@ input:checked + .slider:before {
     font-size: 1.5em;
     font-weight: bold;
     color: #333;
-    margin-bottom: 10px;
+    margin-bottom: 5px;
 }
 
 .month-navigation {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     width: 100%;
 }
 
@@ -147,7 +147,8 @@ input:checked + .slider:before {
 }
 
 .calendar div {
-    aspect-ratio: 1;
+
+    min-height: 55px;
     padding: 4px;
     border: 1px solid #dee2e6;
     border-radius: 5px;
@@ -216,9 +217,8 @@ background-color: #ecc680;
     border: 2px solid #f44336;
 }
 .result-display {
-
+    display: grid;
     grid-template-rows: repeat(2, auto);
- 
     justify-items: center;
     align-items: center;
     margin-top: 0px;
@@ -296,7 +296,7 @@ background-color: #ecc680;
 }
 
 .highlight-return-date {
-    background-color: #a5c3b5; /* 設置背景色為亮黃色 */
+    background-color: #a5c3b5; 
     border-radius: 5px;
     padding: 5px;
     text-align: center;
@@ -305,7 +305,7 @@ background-color: #ecc680;
 
 .passport-label {
     color: rgb(254, 254, 254);
-    font-size: 0.6em;
+    font-size: 0.6rem;
     font-weight: bold;
     padding: 2px 4px;
     background-color: #438549;
@@ -313,7 +313,7 @@ background-color: #ecc680;
 
 .urgent-passport-label {
     color: rgb(254, 254, 254);
-    font-size: 0.6em;
+    font-size: 0.6rem;
     font-weight: bold;
     padding: 2px 4px;
     background-color: #438549;
@@ -321,21 +321,21 @@ background-color: #ecc680;
 
 .reissue-passport-label {
     color: rgb(254, 254, 254);
-    font-size: 0.6em;
+    font-size: 0.6rem;
     font-weight: bold;
     padding: 2px 4px;
     background-color: #438549;
 }
 .lost-urgent-passport-label {
     color: rgb(254, 254, 254);
-    font-size: 0.6em;
+    font-size: 0.6rem;
     font-weight: bold;
     padding: 2px 4px;
     background-color: #438549;
 }
 .permit-label {
     color: rgb(254, 254, 254);
-    font-size: 0.6em;
+    font-size: 0.6rem;
     font-weight: bold;
     padding: 2px 4px;
     background-color: #957302;
@@ -343,19 +343,19 @@ background-color: #ecc680;
 
 .permit-urgent-label {
     color: rgb(254, 254, 254);
-    font-size: 0.6em;
+    font-size: 0.6rem;
     font-weight: bold;
     padding: 2px 4px;
     background-color: #957302;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 400px) {
     body {
-        padding: 10px;
+        padding: 5px;
     }
 
     .main-container {
-        padding: 10px;
+        padding: 5px;
     }
 
     .calendar div {

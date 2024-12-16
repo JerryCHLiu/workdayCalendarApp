@@ -39,6 +39,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const URGENT_PASSPORT_DAYS = 2;
     const URGENT_PERMIT_DAYS = 3;
     const REISSUE_PASSPORT_DAYS = 12;
+    const REISSUE_URGENT_PASSPORT_DAYS = 3;
 
     // Fetch holidays from JSON
     async function fetchHolidays() {
@@ -294,7 +295,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     if (urgentSwitch.checked && reissueSwitch.checked) {
                         const lostUrgentPassportDate = calculateReturnDate(
                             selectedDate,
-                            3
+                            REISSUE_URGENT_PASSPORT_DAYS
                         );
                         if (
                             currentDate.toDateString() ===
