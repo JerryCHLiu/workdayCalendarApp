@@ -108,7 +108,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 PASSPORT_DAYS
             );
             const passportElement = document.createElement("div");
-            passportElement.className = "return-date-item passport";
+            passportElement.className = "return-date-item passport highlight-return-date";
             passportElement.textContent = `護照：${formatDateMMDD(
                 passportDate
             )}`;
@@ -120,7 +120,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     URGENT_PASSPORT_DAYS
                 );
                 const urgentElement = document.createElement("div");
-                urgentElement.className = "return-date-item passport-urgent";
+                urgentElement.className = "return-date-item passport-urgent highlight-return-date";
                 urgentElement.textContent = `護照急：${formatDateMMDD(
                     urgentPassportDate
                 )}`;
@@ -133,19 +133,32 @@ document.addEventListener("DOMContentLoaded", function () {
                     REISSUE_PASSPORT_DAYS
                 );
                 const reissueElement = document.createElement("div");
-                reissueElement.className = "return-date-item passport-reissue";
+                reissueElement.className = "return-date-item passport-reissue highlight-return-date";
                 reissueElement.textContent = `護照遺：${formatDateMMDD(
                     reissuePassportDate
                 )}`;
                 returnDates.appendChild(reissueElement);
+            }
+
+            if (urgentSwitch.checked && reissueSwitch.checked) {
+                const lostUrgentPassportDate = calculateReturnDate(
+                    selectedDate,
+                    3
+                );
+                const lostUrgentElement = document.createElement("div");
+                lostUrgentElement.className = "return-date-item passport-lost-urgent highlight-return-date";
+                lostUrgentElement.textContent = `護照急遺：${formatDateMMDD(
+                    lostUrgentPassportDate
+                )}`;
+                returnDates.appendChild(lostUrgentElement);
             }
         }
 
         if (permitSwitch.checked) {
             const permitDate = calculateReturnDate(selectedDate, PERMIT_DAYS);
             const permitElement = document.createElement("div");
-            permitElement.className = "return-date-item permit";
-            permitElement.textContent = `台胞：${formatDateMMDD(permitDate)}`;
+            permitElement.className = "return-date-item permit highlight-return-date";
+            permitElement.textContent = `台胞證：${formatDateMMDD(permitDate)}`;
             returnDates.appendChild(permitElement);
 
             if (urgentSwitch.checked) {
@@ -154,7 +167,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     URGENT_PERMIT_DAYS
                 );
                 const urgentElement = document.createElement("div");
-                urgentElement.className = "return-date-item permit-urgent";
+                urgentElement.className = "return-date-item permit-urgent highlight-return-date";
                 urgentElement.textContent = `台胞急：${formatDateMMDD(
                     urgentPermitDate
                 )}`;
@@ -243,7 +256,10 @@ document.addEventListener("DOMContentLoaded", function () {
                         currentDate.toDateString() ===
                         passportDate.toDateString()
                     ) {
-                        dateDiv.classList.add("passport-return");
+                        const labelElement = document.createElement('span');
+                        labelElement.className = 'passport-label';
+                        labelElement.textContent = '護';
+                        dateDiv.appendChild(labelElement);
                     }
                     if (urgentSwitch.checked) {
                         const urgentPassportDate = calculateReturnDate(
@@ -254,7 +270,10 @@ document.addEventListener("DOMContentLoaded", function () {
                             currentDate.toDateString() ===
                             urgentPassportDate.toDateString()
                         ) {
-                            dateDiv.classList.add("passport-urgent-return");
+                            const labelElement = document.createElement('span');
+                            labelElement.className = 'urgent-passport-label';
+                            labelElement.textContent = '護急';
+                            dateDiv.appendChild(labelElement);
                         }
                     }
                     if (reissueSwitch.checked) {
@@ -266,7 +285,25 @@ document.addEventListener("DOMContentLoaded", function () {
                             currentDate.toDateString() ===
                             reissuePassportDate.toDateString()
                         ) {
-                            dateDiv.classList.add("passport-reissue-return");
+                            const labelElement = document.createElement('span');
+                            labelElement.className = 'reissue-passport-label';
+                            labelElement.textContent = '護遺';
+                            dateDiv.appendChild(labelElement);
+                        }
+                    }
+                    if (urgentSwitch.checked && reissueSwitch.checked) {
+                        const lostUrgentPassportDate = calculateReturnDate(
+                            selectedDate,
+                            3
+                        );
+                        if (
+                            currentDate.toDateString() ===
+                            lostUrgentPassportDate.toDateString()
+                        ) {
+                            const labelElement = document.createElement('span');
+                            labelElement.className = 'lost-urgent-passport-label';
+                            labelElement.textContent = '護急遺';
+                            dateDiv.appendChild(labelElement);
                         }
                     }
                 }
@@ -278,7 +315,10 @@ document.addEventListener("DOMContentLoaded", function () {
                     if (
                         currentDate.toDateString() === permitDate.toDateString()
                     ) {
-                        dateDiv.classList.add("permit-return");
+                        const labelElement = document.createElement('span');
+                        labelElement.className = 'permit-label';
+                        labelElement.textContent = '台';
+                        dateDiv.appendChild(labelElement);
                     }
                     if (urgentSwitch.checked) {
                         const urgentPermitDate = calculateReturnDate(
@@ -289,7 +329,10 @@ document.addEventListener("DOMContentLoaded", function () {
                             currentDate.toDateString() ===
                             urgentPermitDate.toDateString()
                         ) {
-                            dateDiv.classList.add("permit-urgent-return");
+                            const labelElement = document.createElement('span');
+                            labelElement.className = 'permit-urgent-label';
+                            labelElement.textContent = '台急';
+                            dateDiv.appendChild(labelElement);
                         }
                     }
                 }
@@ -298,7 +341,7 @@ document.addEventListener("DOMContentLoaded", function () {
             // Add click event
             dateDiv.addEventListener("click", () => {
                 selectedDate = currentDate;
-                selectedDateInfo.textContent = `選擇日期：${formatDateMMDD(
+                selectedDateInfo.textContent = `收件日期：${formatDateMMDD(
                     selectedDate
                 )}`;
                 updateReturnDates();

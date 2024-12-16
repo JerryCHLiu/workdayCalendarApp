@@ -148,7 +148,7 @@ input:checked + .slider:before {
 
 .calendar div {
     aspect-ratio: 1;
-    padding: 8px;
+    padding: 4px;
     border: 1px solid #dee2e6;
     border-radius: 5px;
     cursor: pointer;
@@ -221,8 +221,8 @@ background-color: #ecc680;
  
     justify-items: center;
     align-items: center;
-    margin-top: 5px;
-    padding: 15px;
+    margin-top: 0px;
+    padding: 5px;
     background-color: #f8f9fa;
     border-radius: 5px;
 }
@@ -291,7 +291,62 @@ background-color: #ecc680;
 .holiday-remark {
     font-size: 0.6rem;
     color: red;
+    font-weight: bold;
     margin-top: 4px;
+}
+
+.highlight-return-date {
+    background-color: #a5c3b5; /* 設置背景色為亮黃色 */
+    border-radius: 5px;
+    padding: 5px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.passport-label {
+    color: rgb(254, 254, 254);
+    font-size: 0.6em;
+    font-weight: bold;
+    padding: 2px 4px;
+    background-color: #438549;
+}
+
+.urgent-passport-label {
+    color: rgb(254, 254, 254);
+    font-size: 0.6em;
+    font-weight: bold;
+    padding: 2px 4px;
+    background-color: #438549;
+}
+
+.reissue-passport-label {
+    color: rgb(254, 254, 254);
+    font-size: 0.6em;
+    font-weight: bold;
+    padding: 2px 4px;
+    background-color: #438549;
+}
+.lost-urgent-passport-label {
+    color: rgb(254, 254, 254);
+    font-size: 0.6em;
+    font-weight: bold;
+    padding: 2px 4px;
+    background-color: #438549;
+}
+.permit-label {
+    color: rgb(254, 254, 254);
+    font-size: 0.6em;
+    font-weight: bold;
+    padding: 2px 4px;
+    background-color: #957302;
+}
+
+.permit-urgent-label {
+    color: rgb(254, 254, 254);
+    font-size: 0.6em;
+    font-weight: bold;
+    padding: 2px 4px;
+    background-color: #957302;
 }
 
 @media (max-width: 600px) {
